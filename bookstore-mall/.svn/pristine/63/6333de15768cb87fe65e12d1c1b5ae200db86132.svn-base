@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.BookMapper">
+	<!-- 根据作者查书 -->
+	<select id="selectBookByAuthor" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_book b,t_author a,t_book_author ab WHERE a.author_id = ab.author_id AND 
+		b.book_id = ab.book_id AND b.book_status = #{bookStatus} AND a.author_name = #{author};
+	</select>
+	<!-- 查询最热sql语句 -->
+	<select id="selectHotBookByPage" resultMap="resultBookTwo">
+		SELECT <include refid="hotBookColumn"/> FROM t_book b,t_author a,t_book_author ab WHERE a.author_id = ab.author_id AND 
+		b.book_id = ab.book_id AND b.book_status = #{bookStatus} GROUP BY b.book_name ORDER BY b.stock_sales DESC LIMIT #{index},#{pageSize}
+	</select>
+	<!-- 查询十大经典     在表中查询 -->
+	<select id="selectBookByKind" resultMap="resultTenBook">
+		SELECT <include refid="bookTenColumn"/> FROM t_book WHERE book_category = #{bookKind} LIMIT 10;
+	</select>
+	<!-- 查询分页sql语句 一条sql -->
+	<select id="selectBookByPage" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_book b,t_author a,t_book_author ab WHERE a.author_id = ab.author_id AND 
+		b.book_id = ab.book_id AND b.book_status = #{bookStatus} GROUP BY b.book_id LIMIT #{index},#{pageSize};
+	</select>
+	<!-- 搜索查询sql语句 -->
+	<select id="selectBookByKeyword" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_book b,t_author a,t_book_author ab WHERE 
+		a.author_id = ab.author_id AND b.book_id = ab.book_id AND b.book_status = #{bookStatus} AND (a.author_name LIKE '%${keyword}%' OR b.book_name LIKE '%${keyword}%')
+		GROUP BY b.book_id LIMIT #{index},#{pageSize};
+	</select>
+	<!-- 收藏查询sql -->
+	<select id="selectFavoriteBook" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_user u,t_book b,t_user_book ub,t_author a,t_book_author ba 
+		WHERE u.user_id = ub.user_id AND b.book_id = ub.book_id AND b.book_id = ba.book_id AND ba.author_id = a.author_id 
+		AND u.user_id = #{userId} GROUP BY b.book_id;
+	</select>
+	<!-- 查询主题内容 -->
+	<select id="selectBookTheme" resultType="com.bs.mall.pojo.BookTheme">
+		select <include refid="bookThemeColumn"/> from t_theme where theme_id = #{themeId}
+	</select>
+	<!-- 查询书单 -->
+	<select id="selectBookList" resultType="com.bs.mall.pojo.BookList">
+		SELECT <include refid="bookListColumn"/> FROM t_author a,t_book_author ba, t_book b,t_book_theme bt 
+		WHERE b.book_id = bt.book_id AND b.book_id = ba.book_id AND a.author_id = ba.author_id AND bt.theme_id = #{themeId}
+	</select>
+	<resultMap type="com.bs.mall.pojo.HotBook" id="resultBookTwo">
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="authorName" property="authorName"/>
+		<result column="stock_sales" property="stockSales"/>
+	</resultMap>
+	<resultMap type="com.bs.mall.pojo.Book" id="resultTenBook">
+		<id column="primary_id" property="primaryId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="book_profile" property="bookProfile"/>
+		<result column="book_category" property="bookCategory"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+	</resultMap>
+	<resultMap type="com.bs.mall.pojo.Book" id="resultBook">
+		<id column="primary_id" property="primaryId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+		<result column="book_profile" property="bookProfile"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="book_status" property="bookStatus"/>
+		<collection property="bookAuthor" column="bookId" ofType="com.bs.mall.pojo.Author">
+			<id column="author_id" property="authorId"/>
+			<result column="author_name" property="authorName"/>
+		</collection>
+	</resultMap>
+	<sql id="bookThemeColumn">theme_id,theme_name,recommend_reason</sql>
+	<sql id="bookListColumn">b.book_id,b.book_name,a.author_name,b.book_cover_image,bt.recommend_word</sql>
+	<sql id="bookTenColumn">primary_id,book_id,book_name,book_sales_price,book_cover_image,book_category,book_profile</sql>
+	<sql id="bookColumn">b.primary_id,b.book_id,b.book_name,b.book_sales_price,b.book_cover_image,b.book_profile,a.author_id,GROUP_CONCAT(DISTINCT a.author_name separator '&amp;') author_name</sql>
+	<sql id="hotBookColumn">b.book_id,b.book_cover_image,b.book_sales_price,GROUP_CONCAT(DISTINCT a.author_name separator '&amp;') authorName, 
+	b.book_name, b.stock_sales</sql>
+</mapper>

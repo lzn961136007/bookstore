@@ -1,0 +1,13 @@
+package com.bs.mall.dao;
+
+import java.util.List;
+
+import com.bs.mall.pojo.Cart;
+
+public interface CartDao {
+	List<Cart> referCartByUserId(Integer userId);
+	List<Cart> referOrderByUserId(Integer userId);
+	Integer updateOrder(Integer orderId,String orderStatus);
+	Integer addCart(List<Cart>Carts);
+
+}

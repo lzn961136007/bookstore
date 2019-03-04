@@ -1,0 +1,37 @@
+package com.bs.mall.service;
+
+import com.bs.mall.pojo.User;
+import com.bs.mall.util.JsonData;
+
+public interface UserService {
+	//登陆
+	User getSelectByUser(String email,String password);
+
+	//邮箱合用户名是否存在
+	User getUserByEmail(String email);
+	User getUserByName(String username);
+	
+	Integer getUpdateByStatus(User user);
+	//判断注册是否成功
+	Boolean addUser(String email,String username,String password);
+	
+	User getUserByPhone(String email);
+	
+	User getUSerName(String email);
+	User getUserColumn(String email,String password);
+	//判断修改是否成功
+	Boolean getUpdateByUser(String email,String password);
+
+	//判断用户是否是新用户
+	Boolean getNewUser(Integer userId);
+	//判断用户是否领取了券
+	Boolean getGetCoupon(Integer userId,Integer couponId);
+	//优惠券领取
+	Boolean addUserGetCoupon(Integer userId,Integer couponId);
+	//获取优惠券信息
+	JsonData addCouponInfo(Integer userId, Integer couponId);
+
+
+	//修改用户信息
+	boolean editorUserInfomation(User user);
+}

@@ -1,0 +1,12 @@
+package com.bs.mall.mapper;
+
+import java.util.List;
+
+import com.bs.mall.pojo.Member;
+import com.bs.mall.pojo.MemberRecord;
+
+public interface MemberMapper {
+	List<Member> selectAllMember();
+	List<MemberRecord> selectAllRecordByUserId(Integer userId);
+	Integer insertMemberUser(Integer userId,Integer memberId,String createTime);
+}

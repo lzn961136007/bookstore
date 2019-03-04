@@ -1,0 +1,16 @@
+package com.bs.mall.dao;
+
+import java.util.List;
+
+import com.bs.mall.pojo.Coupon;
+import com.bs.mall.pojo.UserCoupon;
+
+public interface CouponDao {
+	List<Coupon> referAllInfo(String kind);
+	
+	Coupon referCoupon(Integer couponId);
+
+	List<UserCoupon> referUserCoupon(Integer userId);
+
+	Integer updateUserCoupons(Integer userId, Integer couponId, String couponUseTime);
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bs.mall.mapper.DiscountBookMapper">
+	<select id="selectAllDiscount" resultType="com.bs.mall.pojo.DiscountBook">
+		SELECT <include refid="discountColumn"/> FROM t_book b,t_activity a,t_activity_books ab,t_author au,t_book_author ba  
+		WHERE ba.book_id = b.book_id AND au.author_id = ba.author_id AND b.book_id = ab.book_id AND ab.activity_id = a.activity_id 
+		AND a.activity_id IN (SELECT activity_id FROM t_activity WHERE NOW() &lt; activity_end AND NOW() &gt; activity_start) GROUP BY b.book_id
+	</select>
+	<sql id="discountColumn">b.book_id,b.book_name,b.book_sales_price,b.book_cover_image,a.activity_id,a.activity_name,a.activity_discount,GROUP_CONCAT(au.author_name) author_name</sql>
+</mapper>

@@ -1,0 +1,34 @@
+package com.bs.mall.mapper;
+
+
+import org.apache.ibatis.annotations.Param;
+
+import com.bs.mall.pojo.User;
+import com.bs.mall.pojo.UserGetCoupon;
+public interface UserMapper {
+	//登陆时
+	User getUserByUserId(@Param("phone")String phone,@Param("password")String password);
+	//注册时
+	User getUSerIsExist(@Param("email")String email,@Param("username")String username);
+	//注册时添加到数据库
+	Integer addUserByUSer(User user);
+	//修改时
+	User getSelectByUserPhone(@Param("email")String email);
+	//修改时添加到数据库
+	Integer updateUserByUser(User user);
+	//用户领券
+	Integer insertCoupon(@Param("userId") Integer userId,@Param("couponId") Integer couponId,@Param("date") String date);
+	//获取用户信息
+	User selectUserById(Integer userId);
+	//判断用户是否领完券
+	UserGetCoupon selectUserCoupon(@Param("userId") Integer userId,@Param("couponId") Integer couponId); 
+	//修改用户余额
+	Integer updateUserbalance(User user);
+	/**
+	 * 查询用户详细信息
+	 * @param userId
+	 * @return
+	 */
+	User selectUserInfo(@Param("userId")Integer userId);
+}
+

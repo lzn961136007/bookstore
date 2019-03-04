@@ -1,0 +1,46 @@
+package com.bs.mall.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bs.mall.dao.BookDao;
+import com.bs.mall.pojo.Book;
+import com.bs.mall.pojo.BookList;
+import com.bs.mall.pojo.HotBook;
+import com.bs.mall.service.BookService;
+@Service
+public class BookServiceImpl implements BookService {
+	@Autowired
+	private BookDao bd;
+	@Override
+	public List<Book> getBookByPage(Integer pageNum) {
+		return bd.referBookByPage(pageNum);
+	}
+	@Override
+	public List<Book> getBookByKeyword(Integer pageNum, String keyword) {
+		return bd.referBookByKeyword(pageNum, keyword);
+	}
+	@Override
+	public List<Book> getFavoriteBook(Integer userId) {
+		return bd.referFavoriteBook(userId);
+	}
+	@Override
+	public List<HotBook> getHotBookByPage(Integer pageNum) {
+		return bd.referHotBookByPage(pageNum);
+	}
+	@Override
+	public List<Book> getBookByKind(String bookKind) {
+		return bd.referBookByKind(bookKind);
+	}
+	@Override
+	public List<Book> getBookByAuthor(String author) {
+		return bd.referBookByAuthor(author);
+	}
+	@Override
+	public List<BookList> getBookList(Integer themeId) {
+		return bd.referBookList(themeId);
+	}
+
+}

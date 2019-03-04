@@ -1,0 +1,13 @@
+package com.bs.mall.util;
+
+import java.text.DateFormat;
+import java.util.Date;
+//创建的时间类
+public class CreateDatetime {
+	public static String createTime(){
+		return DateFormat.getDateTimeInstance().format(new Date());
+	}
+//	public static void main(String[] args) {
+//		System.out.println(DateFormat.getDateTimeInstance().format(new Date()));
+//	}
+}

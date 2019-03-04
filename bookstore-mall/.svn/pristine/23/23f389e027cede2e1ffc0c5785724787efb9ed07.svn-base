@@ -1,0 +1,172 @@
+package com.bs.mall.pojo;
+
+import java.util.Date;
+
+public class User {
+	private Integer userId;
+	private String username;
+	private String password;
+	private String phone;
+	private String email;
+	private Date registerDate;
+	private String level;
+	private Integer score;
+	private Integer balance;
+	private Boolean active;
+	private Date lastLoginTime;
+	private String code;
+	private Boolean cartStatus;
+	private Boolean sex;
+	private Integer age;
+	private Date birthday;
+	private String address;
+	private String signature;
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public Integer getScore() {
+		return score;
+	}
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+	public Integer getBalance() {
+		return balance;
+	}
+	public void setBalance(Integer balance) {
+		this.balance = balance;
+	}
+	public Boolean getActive() {
+		return active;
+	}
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public Boolean getCartStatus() {
+		return cartStatus;
+	}
+	public void setCartStatus(Boolean cartStatus) {
+		this.cartStatus = cartStatus;
+	}
+	public Boolean getSex() {
+		return sex;
+	}
+	public void setSex(Boolean sex) {
+		this.sex = sex;
+	}
+	public Integer getAge() {
+		return age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+	public Date getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getSignature() {
+		return signature;
+	}
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public User(Integer userId, String username, String password, String phone, String email, Date registerDate,
+			String level, Integer score, Integer balance, Boolean active, Date lastLoginTime, String code,
+			Boolean cartStatus, Boolean sex, Integer age, Date birthday, String address, String signature) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.phone = phone;
+		this.email = email;
+		this.registerDate = registerDate;
+		this.level = level;
+		this.score = score;
+		this.balance = balance;
+		this.active = active;
+		this.lastLoginTime = lastLoginTime;
+		this.code = code;
+		this.cartStatus = cartStatus;
+		this.sex = sex;
+		this.age = age;
+		this.birthday = birthday;
+		this.address = address;
+		this.signature = signature;
+	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", phone=" + phone
+				+ ", email=" + email + ", registerDate=" + registerDate + ", level=" + level + ", score=" + score
+				+ ", balance=" + balance + ", active=" + active + ", lastLoginTime=" + lastLoginTime + ", code=" + code
+				+ ", cartStatus=" + cartStatus + ", sex=" + sex + ", age=" + age + ", birthday=" + birthday
+				+ ", address=" + address + ", signature=" + signature + "]";
+	}
+	
+	
+	
+	
+	
+}

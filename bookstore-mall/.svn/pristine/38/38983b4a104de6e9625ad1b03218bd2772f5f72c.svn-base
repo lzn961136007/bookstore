@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.ReceiveAddressMapper">
+
+	<!-- 查询用户的收货地址-->
+	<select id="selectReceiveAddressByUserId" resultMap="resultReceiveAddress">
+		SELECT <include refid="receiceAddressColumn"/> FROM t_receive_address ra WHERE user_id=#{userId};		
+	</select>
+	
+	<!--查询用户默认收货地址  -->
+	<select id="selectDefaultReceiveAddress" resultMap="resultReceiveAddress">
+	SELECT <include refid="receiceAddressColumn"/> FROM t_receive_address ra WHERE user_id=#{userId} and address_status=true;	
+	
+	</select>
+	
+	<!--添加用户收货地址的sql语句  -->
+	<insert id="insetReceiveAddress" parameterType="com.bs.mall.pojo.ReceiveAddress">
+	insert into t_receive_address(<include refid="receiceAddress"/>) values(#{receiveAddress.userId},#{receiveAddress.addressMobile},#{receiveAddress.addressConsignee},#{receiveAddress.addressProvince},#{receiveAddress.addressCity},#{receiveAddress.addressCounty},#{receiveAddress.addressDetail})
+	</insert>
+	
+	<!--删除用户的收货地址  -->
+	<delete id="delUserReceiveAddress">
+	 delete from t_receive_address where user_id = #{userId} and address_id=#{addressId}
+	</delete>
+	
+	<!--修改用户的收货地址  -->
+	<update id="updateUserReceiveAddress" parameterType="com.bs.mall.pojo.ReceiveAddress">
+  update t_receive_address
+    <set>
+      <if test="editorAddress.addressMobile != null">address_mobile=#{editorAddress.addressMobile},</if>
+      <if test="editorAddress.addressConsignee != null">address_consignee=#{editorAddress.addressConsignee},</if>
+      <if test="editorAddress.addressProvince != null">address_province=#{editorAddress.addressProvince},</if>
+      <if test="editorAddress.addressCity != null">address_city=#{editorAddress.addressCity},</if>
+      <if test="editorAddress.addressCounty != null">address_county=#{editorAddress.addressCounty},</if>
+      <if test="editorAddress.addressDetail != null">address_detail=#{editorAddress.addressDetail},</if>
+      <if test="editorAddress.addressStatus != null">address_status=#{editorAddress.addressStatus}</if>
+    </set>
+  where address_id=#{editorAddress.addressId} and user_id=#{editorAddress.userId}
+</update>
+
+
+	<!--修改用户默认收货地址  -->
+	<update id="updateUserReceiveAddressStatus">
+	update t_receive_address set address_status=#{addressStatus} where address_id=#{addressId} and user_id=#{userId}
+	</update>
+	
+	
+	<!-- 搜索查询sql语句 -->
+	<!-- <select id="selectBookByKeyword" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_book b,t_author a,t_book_author ab WHERE 
+		a.author_name LIKE  '%${keyword}%' OR b.book_name LIKE '%${keyword}%' AND 
+		a.author_id = ab.author_id AND b.book_id = ab.book_id LIMIT #{index},10;
+	</select> -->
+	<!-- 收藏查询sql -->
+	<!-- <select id="selectFavoriteBook" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_user u,t_book b,t_user_book ub,t_author a,t_book_author ba 
+		WHERE u.user_id = ub.user_id AND b.book_id = ub.book_id AND b.book_id = ba.book_id AND ba.author_id = a.author_id 
+		AND u.user_id = #{userId};
+	</select> -->
+	<resultMap type="com.bs.mall.pojo.ReceiveAddress" id="resultReceiveAddress">
+		<result column="address_id" property="addressId"/>
+		<result column="user_id" property="userId"/>
+		<result column="address_mobile" property="addressMobile"/>
+		<result column="address_consignee" property="addressConsignee"/>
+		<result column="address_province" property="addressProvince"/>
+		<result column="address_city" property="addressCity"/>
+		<result column="address_county" property="addressCounty"/>
+		<result column="address_detail" property="addressDetail"/>
+		<result column="address_status" property="addressStatus"/>
+	</resultMap>
+
+	
+	<sql id="receiceAddressColumn">ra.address_id,ra.user_id,ra.address_mobile,ra.address_consignee,ra.address_province,ra.address_city,ra.address_county,ra.address_detail,ra.address_status</sql>
+	<sql id="receiceAddress">user_id,address_mobile,address_consignee,address_province,address_city,address_county,address_detail,address_status</sql>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.BookMapper">
+	<!-- 根据作者查书 -->
+	<select id="selectBookByAuthor" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_book b,t_author a,t_book_author ab WHERE a.author_id = ab.author_id AND 
+		b.book_id = ab.book_id AND a.author_name = #{author};
+	</select>
+	<!-- 查询最热sql语句 -->
+	<select id="selectHotBookByPage" resultMap="resultBookTwo">
+		SELECT <include refid="hotBookColumn"/> FROM t_purchase_item pi,t_book b,t_stock s,t_author a,t_book_author ab WHERE a.author_id = ab.author_id AND 
+		b.book_id = ab.book_id AND pi.book_id = b.book_id AND pi.purchase_item_id = s.purchase_item_id 
+		GROUP BY b.book_name ORDER BY totalSales DESC LIMIT #{index},10
+	</select>
+	<!-- 查询十大经典 -->
+	<select id="selectBookByKind" resultMap="resultTenBook">
+		SELECT <include refid="bookTenColumn"/> FROM t_book WHERE book_category = #{bookKind} LIMIT 10;
+	</select>
+	<!-- 查询分页sql语句 一条sql -->
+	<select id="selectBookByPage" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_book b,t_author a,t_book_author ab WHERE a.author_id = ab.author_id AND 
+		b.book_id = ab.book_id GROUP BY b.book_id LIMIT #{index},10;
+	</select>
+	<!-- 搜索查询sql语句 -->
+	<select id="selectBookByKeyword" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_book b,t_author a,t_book_author ab WHERE 
+		a.author_id = ab.author_id AND b.book_id = ab.book_id AND (a.author_name LIKE '%${keyword}%' OR b.book_name LIKE '%${keyword}%')
+		GROUP BY b.book_id LIMIT #{index},10;
+	</select>
+	<!-- 收藏查询sql -->
+	<select id="selectFavoriteBook" resultMap="resultBook">
+		SELECT <include refid="bookColumn"/> FROM t_user u,t_book b,t_user_book ub,t_author a,t_book_author ba 
+		WHERE u.user_id = ub.user_id AND b.book_id = ub.book_id AND b.book_id = ba.book_id AND ba.author_id = a.author_id 
+		AND u.user_id = #{userId};
+	</select>
+	<resultMap type="com.bs.mall.pojo.HotBook" id="resultBookTwo">
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="authorName" property="authorName"/>
+		<result column="totalSales" property="totalSales"/>
+	</resultMap>
+	<resultMap type="com.bs.mall.pojo.Book" id="resultTenBook">
+		<id column="primary_id" property="primaryId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="book_profile" property="bookProfile"/>
+		<result column="book_category" property="bookCategory"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+	</resultMap>
+	<resultMap type="com.bs.mall.pojo.Book" id="resultBook">
+		<id column="primary_id" property="primaryId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+		<result column="book_profile" property="bookProfile"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="book_status" property="bookStatus"/>
+		<collection property="bookAuthor" column="bookId" ofType="com.bs.mall.pojo.Author">
+			<id column="author_id" property="authorId"/>
+			<result column="author_name" property="authorName"/>
+		</collection>
+	</resultMap>
+	<sql id="bookTenColumn">primary_id,book_id,book_name,book_sales_price,book_cover_image,book_category,book_profile</sql>
+	<sql id="bookColumn">b.primary_id,b.book_id,b.book_name,b.book_sales_price,b.book_cover_image,b.book_profile,a.author_id,GROUP_CONCAT(DISTINCT a.author_name separator '&amp;') author_name</sql>
+	<sql id="hotBookColumn">b.book_id,b.book_cover_image,b.book_sales_price,GROUP_CONCAT(DISTINCT a.author_name separator '&amp;') authorName, 
+	b.book_name, s.stock_sales totalSales</sql>
+</mapper>

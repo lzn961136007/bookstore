@@ -1,0 +1,127 @@
+package com.bs.mall.pojo;
+
+public class Order {
+	
+	private Integer orderId;
+	private Integer expressId;
+	private Integer receiveAddressId;
+	private Integer userId;
+	private Integer bookId;
+	private String orderDate;
+	private String orderTime;
+	private String orderStatus;
+	private String imgUrl;
+	private String bookName;
+	private String bookPrice;
+	private String totalPrivce;
+	private String bookNum;
+	
+	public Integer getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+	public Integer getExpressId() {
+		return expressId;
+	}
+	public void setExpressId(Integer expressId) {
+		this.expressId = expressId;
+	}
+	public Integer getReceiveAddressId() {
+		return receiveAddressId;
+	}
+	public void setReceiveAddressId(Integer receiveAddressId) {
+		this.receiveAddressId = receiveAddressId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public Integer getBookId() {
+		return bookId;
+	}
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getOrderTime() {
+		return orderTime;
+	}
+	public void setOrderTime(String orderTime) {
+		this.orderTime = orderTime;
+	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+	public String getBookPrice() {
+		return bookPrice;
+	}
+	public void setBookPrice(String bookPrice) {
+		this.bookPrice = bookPrice;
+	}
+	public String getTotalPrivce() {
+		return totalPrivce;
+	}
+	public void setTotalPrivce(String totalPrivce) {
+		this.totalPrivce = totalPrivce;
+	}
+	public String getBookNum() {
+		return bookNum;
+	}
+	public void setBookNum(String bookNum) {
+		this.bookNum = bookNum;
+	}
+	public Order(Integer orderId, Integer expressId, Integer receiveAddressId, Integer userId, Integer bookId,
+			String orderDate, String orderTime, String orderStatus, String imgUrl, String bookName, String bookPrice,
+			String totalPrivce, String bookNum) {
+		super();
+		this.orderId = orderId;
+		this.expressId = expressId;
+		this.receiveAddressId = receiveAddressId;
+		this.userId = userId;
+		this.bookId = bookId;
+		this.orderDate = orderDate;
+		this.orderTime = orderTime;
+		this.orderStatus = orderStatus;
+		this.imgUrl = imgUrl;
+		this.bookName = bookName;
+		this.bookPrice = bookPrice;
+		this.totalPrivce = totalPrivce;
+		this.bookNum = bookNum;
+	}
+	public Order() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", expressId=" + expressId + ", receiveAddressId=" + receiveAddressId
+				+ ", userId=" + userId + ", bookId=" + bookId + ", orderDate=" + orderDate + ", orderTime=" + orderTime
+				+ ", orderStatus=" + orderStatus + ", imgUrl=" + imgUrl + ", bookName=" + bookName + ", bookPrice="
+				+ bookPrice + ", totalPrivce=" + totalPrivce + ", bookNum=" + bookNum + "]";
+	}
+	
+}

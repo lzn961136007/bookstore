@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.OrderCommentMapper">
+	
+	
+	
+	
+		<!--将用户的评价表单提交到数据库 -->
+	  <insert id="addOrderComment" parameterType="com.bs.mall.pojo.OrderComment">
+        insert into t_order_comment(<include refid="orderCommentColumn"/>) values(#{evalution.orderId},#{evalution.userId},#{evalution.orderCommentContent},#{evalution.orderCommentSpScore},#{evalution.orderCommentFwScore},#{evalution.orderCommentWlScore},#{evalution.orderCommentCreatetime})
+    </insert>
+	
+	
+<sql id="orderCommentColumn">order_id,user_id,order_comment_content,order_comment_sp_score ,order_comment_fw_score,order_comment_wl_score,order_comment_createtime</sql>
+</mapper>

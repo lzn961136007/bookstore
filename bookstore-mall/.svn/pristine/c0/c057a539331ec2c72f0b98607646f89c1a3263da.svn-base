@@ -1,0 +1,97 @@
+package com.bs.mall.service.impl;
+
+import java.text.DateFormat;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bs.mall.dao.CouponDao;
+import com.bs.mall.dao.UserDao;
+import com.bs.mall.pojo.Coupon;
+import com.bs.mall.pojo.User;
+import com.bs.mall.pojo.UserGetCoupon;
+import com.bs.mall.service.UserService;
+import com.bs.mall.util.JsonData;
+import com.bs.mall.util.JudgeUser;
+
+@Service
+public class UserServiceimpl implements UserService{
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private CouponDao couponDao;
+	@Override
+	public User  getSelectByUser(String phone,String password) {
+		 return userDao.selectUser(phone, password);
+	}
+	@Override
+	public User getUserIsExist(String email, String username) {
+		return userDao.selectUserIsExist(email, username);
+	}
+	@Override
+	public Boolean addUser(String email,String username,String password) {
+		User user = new User();
+		user.setPhone(email);
+		user.setUsername(username);
+		user.setPassword(password);
+		 Integer insert = userDao.insertUser(user);
+		 return insert>0 ? true:false;
+		
+		
+		
+	}
+	@Override
+	public User getUserByPhone(String email) {
+		return userDao.selectByUserPhone(email);
+		
+	}
+	@Override
+	public Boolean getUpdateByUser(String email, String password) {
+		User user = userDao.selectByUserPhone(email);
+		user.setPhone(email);
+		user.setPassword(password);
+		 Integer update = userDao.updateUser(user);
+		 return update>0?true:false;
+	}
+	@Override
+	public Boolean getNewUser(Integer userId) {
+		User user = userDao.referUserById(userId);
+		return new JudgeUser().judgeUser(user);
+	}
+	@Override
+	public Boolean getGetCoupon(Integer userId, Integer couponId) {
+		UserGetCoupon referUserGetCoupon = userDao.referUserGetCoupon(userId, couponId);
+		if(referUserGetCoupon!=null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	@Override
+	public Boolean addUserGetCoupon(Integer userId, Integer couponId) {
+		String date = DateFormat.getDateInstance().format(new Date());
+		Integer userGetCoupon = userDao.augmentUserGetCoupon(userId, couponId, date);
+		return userGetCoupon>0?true:false;
+	}
+	@Override
+	public JsonData addCouponInfo(Integer userId, Integer couponId) {
+		Date date = new Date();
+		Coupon coupon = couponDao.referCoupon(couponId);
+		if(coupon.getCouponRemainNum() < 1){
+			return new JsonData(null, null, "优惠券没有了！", false);
+		}
+		//时间顺序对判断有影响   
+		if(!coupon.getCouponEnd().after(date)){
+			return new JsonData(null,null,"优惠券已过期!",false);
+		}
+		if(!coupon.getCouponStart().before(date)){
+			return new JsonData(null, null, "优惠活动还未开始!", false);
+		}
+		String dateString = DateFormat.getDateInstance().format(date);
+		Integer userGetCoupon = userDao.augmentUserGetCoupon(userId, couponId, dateString);
+		return userGetCoupon>0?new JsonData(null,null,"成功领取!",true):new JsonData(null,null,"领取失败!",false);
+	}
+	
+
+}

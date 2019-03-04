@@ -1,0 +1,17 @@
+package com.bs.mall.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.bs.mall.pojo.Book;
+import com.bs.mall.pojo.HotBook;
+
+public interface BookMapper {
+	List<Book> selectBookByPage(Integer index);
+	List<Book> selectBookByKeyword(@Param("index") Integer index,@Param("keyword") String keyword);
+	List<Book> selectFavoriteBook(Integer userId);
+	List<HotBook> selectHotBookByPage(Integer index);
+	List<Book> selectBookByKind(String bookKind);
+	List<Book> selectBookByAuthor(String author);
+}

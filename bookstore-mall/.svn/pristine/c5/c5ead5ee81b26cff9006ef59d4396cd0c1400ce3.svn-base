@@ -1,0 +1,11 @@
+package com.bs.mall.dao;
+
+import java.util.List;
+
+import com.bs.mall.pojo.Coupon;
+
+public interface CouponDao {
+	List<Coupon> referAllInfo(String kind);
+	
+	Coupon referCoupon(Integer couponId);
+}

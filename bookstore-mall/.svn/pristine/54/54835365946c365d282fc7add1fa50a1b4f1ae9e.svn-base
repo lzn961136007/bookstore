@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- CouponMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.CouponMapper">
+	<select id="selectAllInfo" resultMap="resultCoupon">
+		select <include refid="couponColumn"/> from t_coupon where coupon_status = #{kind}
+	</select>
+	<select id="selectUserGetCoupon" resultMap="resultCoupon">
+		select <include refid="couponColumn"/> from t_coupon where coupon_id = #{couponId}
+	</select>
+	<resultMap type="com.bs.mall.pojo.Coupon" id="resultCoupon">
+		<id column="primary_id" property="primaryId"/>
+		<result column="coupon_id" property="couponId"/>
+		<result column="coupon_name" property="couponName"/>
+		<result column="coupon_money" property="couponMoney"/>
+		<result column="coupon_start" property="couponStart"/>
+		<result column="coupon_end" property="couponEnd"/>
+		<result column="coupon_remain_num" property="couponRemainNum"/>
+		<result column="coupon_num" property="couponNum"/>
+	</resultMap>
+	<sql id="couponColumn">primary_id,coupon_id,coupon_name,coupon_money,coupon_num,coupon_start,coupon_end,coupon_remain_num</sql>
+</mapper>

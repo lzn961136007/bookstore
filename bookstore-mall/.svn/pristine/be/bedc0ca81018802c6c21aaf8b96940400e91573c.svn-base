@@ -1,0 +1,12 @@
+package com.bs.mall.mapper;
+
+
+import org.apache.ibatis.annotations.Param;
+
+import com.bs.mall.pojo.OrderComment;
+
+public interface OrderCommentMapper {
+
+	Integer addOrderComment(@Param("evalution")OrderComment evalution);
+	
+}

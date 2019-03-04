@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.CartMapper">
+	
+	<!-- 用购物车数据查询 -->
+	<select id="selectCartByUserId" resultMap="resultCart">
+		SELECT <include refid="cartColumn"/> FROM t_cart c WHERE user_id=#{userId};
+		
+	</select>
+	
+	
+		<!--批量将购物车的数据存入数据库  -->
+	  <insert id="addCart" parameterType="com.bs.mall.pojo.Cart">
+        insert into t_cart(<include refid="cartColumnList"/>) values
+        <foreach collection="Carts" item="Carts" separator=",">
+            (
+           #{Carts.bookId},#{Carts.imgUrl},#{Carts.bookName},#{Carts.bookPrice},#{Carts.isStatus},#{Carts.bookNum},#{Carts.userId}
+            )
+        </foreach>
+    </insert>
+	
+	
+	<!--批量删除购物车中用户结算的商品  -->
+	<delete id="deCartsAlreadyPay">
+	 delete from t_cart  where  book_id IN
+        <foreach collection="booksId" item="booksId" index="index" open="(" close=")" separator=",">
+            #{booksId}
+        </foreach>
+	</delete>
+	<!--用户删除购物车中指定的商品  -->
+	<delete id="delCart">
+	delete from t_cart where cart_id=#{cartId} and user_id=#{userId};
+	
+	</delete>
+
+	<resultMap type="com.bs.mall.pojo.Cart" id="resultCart">
+		<result column="cart_id" property="cartId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="book_price" property="bookPrice"/>
+		<result column="is_status" property="isStatus"/>
+		<result column="book_num" property="bookNum"/>
+	</resultMap>
+		<!-- 订单的匹配 -->
+	<resultMap type="com.bs.mall.pojo.Order" id="resulOrder">
+		<result column="order_id" property="orderId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="book_price" property="bookPrice"/>
+		<result column="order_status" property="orderStatus"/>
+		<result column="total_price" property="totalPrivce"/>
+		<result column="book_num" property="bookNum"/>
+		
+	</resultMap>
+
+	
+	<sql id="cartColumn">c.cart_id, c.book_id,c.img_url,c.book_name,c.book_price,c.is_status,c.book_num</sql>
+    <sql id="cartColumnList"> book_id,img_url,book_name,book_price,is_status,book_num,user_id</sql>
+    <sql id="orderColumn">o.order_id,o.book_id, o.book_name,o.img_url,o.book_price,o.order_status,o.total_price,o.book_num</sql>
+</mapper>

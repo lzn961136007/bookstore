@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.AllContentMapper">
+
+<!-- 根据书Id查询所有数据 -->
+	<select id="selectDetailById" resultMap="resultDetailById">
+		SELECT DISTINCT <include refid="AllContextColumn"/> 
+		FROM t_book b,t_author a,t_book_author ba
+		WHERE b.book_id =ba.book_id 
+		AND a.author_id=ba.author_id
+		AND b.book_id =#{bookId}
+	</select>
+	
+<!-- 根据书Id查询评论 -->
+	<select id="selectAllById" resultMap="resultAllById">
+		SELECT c.comment_content ,u.user_name
+		FROM t_comment c,t_book b ,t_user u
+		WHERE c.book_id=b.book_id 
+		and u.user_id = c.user_id
+		and b.book_id =#{book_id}
+	</select>
+
+<!-- 添加收藏 -->
+	<insert id="insertAddBook" parameterType="com.bs.mall.pojo.Collector" >
+		insert into t_user_book(user_id,book_id)values(#{arg0},#{arg1})
+	</insert>
+	
+	<!-- 判断是否存在 -->
+	<select id="getIsExist" resultMap="collectorById">
+		select user_id,book_id from t_user_book where user_id=#{userId} and book_id=#{bookId}
+	</select>
+	
+	<!-- 查询所有种类 -->
+	<select id="selectClassifyById" resultType="com.bs.mall.pojo.Category">
+		select DISTINCT  book_category from t_book 
+	</select>
+	
+	<!-- 点击那个种类就出现那个种类 -->
+	<select id="selectAllBookId" resultType="com.bs.mall.pojo.BookAuthorImage">
+	select DISTINCT book_name,book_category,book_id,book_cover_image
+	from t_book where book_category=#{bookCategory};
+	</select>
+	
+	<!-- 查询所有书和图片 -->
+	<select id="selectAllBook" resultType="com.bs.mall.pojo.BookAuthorImage">
+	SELECT book_name,book_cover_image,book_id from t_book 
+	</select>
+	
+	<!-- 查询对应书id的折扣 -->
+	<select id="selectActivity" resultType="com.bs.mall.pojo.Activity">
+		SELECT b.book_sales_price,b.book_id,a.activity_discount,a.activity_start,a.activity_end ,((a.activity_discount*b.book_sales_price)/100)as discount_price 
+		FROM t_book b,t_activity a,t_activity_books ab 
+		where b.book_id = ab.book_id and a.activity_id = ab.activity_id 
+		 and a.activity_id IN (SELECT activity_id FROM t_activity WHERE NOW() &lt; activity_end and NOW() &gt; activity_start)
+		and b.book_id =#{bookId}
+	</select>
+	
+	<!-- 查看书的所有作者 -->
+	<select id="selectAllAuthor" resultType="com.bs.mall.pojo.AllContent">
+	SELECT b.book_id,a.author_name from t_book b,t_author a,t_book_author ab WHERE b.book_id =ab.book_id 
+		AND a.author_id=ab.author_id AND b.book_id =#{bookId}
+	</select>
+	
+	<!-- 添加评论 -->
+	<insert id="insertAddComment" parameterType="com.bs.mall.pojo.CommentAdd" >
+	INSERT into t_comment(user_id,book_id,comment_content,comment_datatime) values(#{userId},#{bookId},#{commentContent},#{commentDataTime})
+	</insert>
+	
+	<!-- 查看库存 -->
+	<select id="selectStockNum" resultType="com.bs.mall.pojo.AllContent">
+		select book_id,stock_num from v_stock where book_id  =#{bookId}
+	</select>
+	
+	<resultMap type="com.bs.mall.pojo.AllContent" id="resultDetailById">
+		<id column="book_id" property="bookId"/> 
+		<result column="book_name" property="bookName"/>
+		<result column="book_category" property="bookCategory"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+		<result column="book_profile" property="bookProfile"/>
+		<result column="publish_name" property="PublishName"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="author_name" property="authorName"/>
+		<result column="stock_num" property="stockNum"/>
+		<result column="stock_sales" property="stockSales"/>
+		<result column="book_status" property="bookStatus"/>
+	</resultMap>
+	
+	<resultMap type="com.bs.mall.pojo.CommentAdd" id="resultAllById">
+		<result column="comment_content" property="commentContent"/>
+		<result column="user_name" property="userName"/>
+	</resultMap>
+	
+	<!-- 判断是否存 -->
+	<resultMap type="com.bs.mall.pojo.Collector" id="collectorById" autoMapping="true">
+	</resultMap>
+	
+	
+	
+
+	
+	<sql id="AllContextColumn">b.book_id,b.book_name,b.book_category,b.book_sales_price,b.book_profile,b.publish_name,b.book_cover_image,b.book_status,b.stock_sales</sql>
+</mapper>

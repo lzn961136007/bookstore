@@ -1,0 +1,15 @@
+package com.bs.mall.dao;
+
+
+import java.util.List;
+
+import com.bs.mall.pojo.Cart;
+import com.bs.mall.pojo.CreateOrder;
+
+public interface CreateOrderDao {
+
+	Integer addOrder(CreateOrder order);
+
+	Integer addOrderToBookId(List<Cart> carts, String orderId);
+
+}

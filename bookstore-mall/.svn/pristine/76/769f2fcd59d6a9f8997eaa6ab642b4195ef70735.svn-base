@@ -1,0 +1,18 @@
+package com.bs.mall.mapper;
+
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.bs.mall.pojo.Cart;
+import com.bs.mall.pojo.CreateOrder;
+
+public interface CreateOrderMapper {
+
+	Integer insertOrder(@Param("order") CreateOrder order);
+
+	Integer addOrderToBookId(@Param("carts") List<Cart> carts,@Param("orderId") String orderId);
+
+	
+}

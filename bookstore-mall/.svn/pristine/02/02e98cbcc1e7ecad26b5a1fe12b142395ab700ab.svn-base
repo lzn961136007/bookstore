@@ -1,0 +1,29 @@
+package com.bs.mall.dao.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.bs.mall.dao.MemberDao;
+import com.bs.mall.mapper.MemberMapper;
+import com.bs.mall.pojo.Member;
+import com.bs.mall.pojo.MemberRecord;
+import com.bs.mall.util.CreateDatetime;
+@Repository
+public class MemberDaoImpl implements MemberDao {
+	@Autowired
+	private MemberMapper mm;
+	@Override
+	public List<Member> referAllMember() {
+		return mm.selectAllMember();
+	}
+	@Override
+	public List<MemberRecord> referAllRecordByUserId(Integer userId) {
+		return mm.selectAllRecordByUserId(userId);
+	}
+	@Override
+	public Integer createUserMember(Integer userId, Integer memberId) {
+		return mm.insertMemberUser(userId, memberId, CreateDatetime.createTime());
+	}
+}

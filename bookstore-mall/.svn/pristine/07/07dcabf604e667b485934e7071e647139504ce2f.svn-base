@@ -1,0 +1,26 @@
+package com.bs.mall.test;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.bs.mall.pojo.User;
+import com.bs.mall.service.UserService;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring-mybatis.xml","classpath:springMvc.xml","classpath:applicationContext.xml"})
+public class SearchUser {
+	@Resource
+	private UserService us;
+	@Test
+	public void UserTest(){
+//		User user = us.getUserIsExist("2535545766@qq.com");
+//		//Boolean user = us.addUser("2535545766@qq.com", "easy", "123");
+//		System.out.println("是否成功："+user);
+		Boolean addUser = us.addUser("2535545766@qq.com", "xiaoweizi", "111", true);
+		System.out.println("是否添加成功："+addUser);
+	}
+}

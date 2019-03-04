@@ -1,0 +1,40 @@
+package com.bs.mall.dao.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.bs.mall.dao.CartDao;
+import com.bs.mall.dao.OrderCommentDao;
+import com.bs.mall.mapper.CartMapper;
+import com.bs.mall.mapper.OrderCommentMapper;
+import com.bs.mall.pojo.Author;
+import com.bs.mall.pojo.Cart;
+import com.bs.mall.pojo.Order;
+import com.bs.mall.pojo.OrderComment;
+@Repository
+public class OrderCommentDaoImpl implements OrderCommentDao {
+	@Autowired
+	private OrderCommentMapper om;
+
+	@Override
+	public Integer addOrderComment(OrderComment evalution) {
+		return om.addOrderComment(evalution);
+	}
+
+	@Override
+	public Order referBookCommentDetail(String orderId, Integer bookId) {
+		
+		return om.selectBookCommentDetail(orderId,bookId);
+	}
+
+	@Override
+	public List<Author> referBookOfAuthor(Integer bookId) {
+		return om.selectBookOfAuthor(bookId);
+	}
+	
+	
+	
+
+}

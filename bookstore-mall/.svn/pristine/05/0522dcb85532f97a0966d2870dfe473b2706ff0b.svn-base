@@ -1,0 +1,36 @@
+package com.bs.mall.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.bs.mall.pojo.Book;
+import com.bs.mall.pojo.BookList;
+import com.bs.mall.pojo.BookTheme;
+import com.bs.mall.pojo.HotBook;
+import com.bs.mall.pojo.OrderInculdeBooks;
+
+public interface BookMapper {
+	//首页分页查询
+	List<Book> selectBookByPage(@Param("index") Integer index,@Param("bookStatus") String bookStatus,@Param("pageSize") Integer pageSize);
+	//搜索查询
+	List<Book> selectBookByKeyword(@Param("index") Integer index,@Param("bookStatus") String bookStatus,@Param("keyword") String keyword,@Param("pageSize") Integer pageSize);
+	//收藏查询
+	List<Book> selectFavoriteBook(Integer userId);
+	//最热查询
+	List<HotBook> selectHotBookByPage(@Param("index") Integer index,@Param("bookStatus") String bookStatus,@Param("pageSize") Integer pageSize);
+	/*
+	 * 系列专题
+	 */
+	//查询经典书
+	List<Book> selectBookByKind(String bookKind);
+	//查询作者
+	List<Book> selectBookByAuthor(@Param("author") String author,@Param("bookStatus") String bookStatus);
+	//书单查询
+	List<BookList> selectBookList(Integer themeId);
+	//查询主题
+	BookTheme selectBookTheme(Integer themeId);
+	
+	//查询订单内包含的书
+	List<OrderInculdeBooks> selectOrderInculdeBooks(String orderId);
+}

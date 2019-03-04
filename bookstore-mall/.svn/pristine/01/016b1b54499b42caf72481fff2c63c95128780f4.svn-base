@@ -1,0 +1,9 @@
+package com.bs.mall.util;
+
+public class BookStoreConstant {
+	public static final String BOOK_STATUS = "在售";
+	public static final Integer PAGE_SIZE = 10;
+	public static final String ORDER_STATUS = "已完成";
+	public static final String APPSERVERADDRESS="http://127.0.0.1:8080";
+	//http://www.superduck.xyz
+}

@@ -1,0 +1,96 @@
+package com.bs.mall.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import com.bs.mall.pojo.User;
+import com.bs.mall.service.UserService;
+import com.bs.mall.util.JsonData;
+
+@RestController
+public class UserController {
+	@Autowired
+	private UserService userService;
+	//登陆操作
+	@GetMapping("{phone}/{password}/findUser")
+	public User findUSer(@PathVariable("phone")String phone,@PathVariable("password")String password){
+		User user = userService.getSelectByUser(phone, password);
+		if(user.getPhone().equals(phone)&&user.getPassword().equals(password)){
+			return user;
+		}
+		return null;	
+	}
+	//验证码
+	/*@GetMapping("code")
+	public Object code(@PathVariable("VerificationCode")String VerificationCode ){
+		int radomInt = new Random().nextInt(1000001);
+		int radomInt=(int)((Math.random()*9+1)*100000);
+		System.out.println("获取的验证码："+radomInt);
+		if( VerificationCode.equals(radomInt)){
+			return radomInt;
+		}else{
+			return 0;
+		}
+	}*/
+	//注册判断手机号和用户名是否被注册
+	@GetMapping("{email}/{username}/searchPhone")
+	public User searchPhone(@PathVariable("email")String email,@PathVariable("username")String username){
+		User user = userService.getUserIsExist(email, username);
+		if(user.getEmail()!=email&&user.getUsername()!=username){
+			return user;
+		}else{
+			return null;
+		}
+	
+	}
+	//注册数据增添到数据库
+	@GetMapping("{email}/{username}/{password}/searchUser")
+	public JsonData searchUser(@PathVariable("phone")String phone,@PathVariable("username")String username,@PathVariable("password")String password){
+		Boolean status = userService.addUser(phone, username, password);
+		return new JsonData(null, null, "添加成功", status);
+	}
+	
+	@GetMapping("{email}/updatePhone")
+	public User updatePhone(@PathVariable("email")String email){
+		User user = userService.getUserByPhone(email);
+		if(user.getEmail().equals(email)){
+			return user;
+		}else{
+			return null;
+		}
+		
+	}
+	@GetMapping("{email}/{newPassword}/updateUser")
+	public JsonData updateUser(@PathVariable("email")String email,@PathVariable("newPassword")String newPassword){
+		Boolean status = userService.getUpdateByUser(email, newPassword);
+		return new JsonData(null, null, "修改成功", status);
+	}
+	
+	//用户领券
+	@GetMapping("newUserGetCoupon/{userId}/{couponId}")
+	public JsonData userGetCoupon(@PathVariable("userId") Integer userId,@PathVariable("couponId") Integer couponId){
+		Boolean boo1 = userService.getNewUser(userId);
+		if(boo1){
+			return new JsonData(null, null, "您不是新用户！", boo1);
+		}
+		Boolean boo2 = userService.getGetCoupon(userId, couponId);
+		if(boo2){
+			return new JsonData(null, null, "您已经领取过了！", boo2);
+		}
+		Boolean getCoupon = userService.addUserGetCoupon(userId, couponId);
+		if(getCoupon){
+			return new JsonData(null, null, "领取成功！", getCoupon);
+		}else{
+			return new JsonData(null, null, "领取失败！", getCoupon);
+		}
+	}
+	@GetMapping("getCoupon/{userId}/{couponId}")
+	public JsonData getCoupon(@PathVariable("userId") Integer userId,@PathVariable("couponId") Integer couponId){
+		Boolean boolean1 = userService.getGetCoupon(userId, couponId);
+		if(boolean1){
+			return new JsonData(null, null, "您已经领取过了！", boolean1);
+		}
+		return userService.addCouponInfo(userId, couponId);
+	}
+}

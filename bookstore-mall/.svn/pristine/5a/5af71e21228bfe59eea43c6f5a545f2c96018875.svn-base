@@ -1,0 +1,45 @@
+package com.bs.mall.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.bs.mall.pojo.Book;
+import com.bs.mall.pojo.HotBook;
+import com.bs.mall.service.BookService;
+
+@Controller
+public class BookController {
+	@Autowired
+	private BookService bs;
+	@GetMapping("{pageNum}/find")
+	public @ResponseBody List<Book> findBookByPage(@PathVariable("pageNum") Integer pageNum){
+		return bs.getBookByPage(pageNum);
+	}
+	@GetMapping("{keyword}/{pageNum}/keyword")
+	public @ResponseBody List<Book> findBookByKeyword(@PathVariable("pageNum") Integer pageNum,@PathVariable("keyword") String keyword){
+		/*System.out.println("pageNum:"+pageNum);
+		System.out.println("keyword:"+keyword);*/
+		return bs.getBookByKeyword(pageNum, keyword);
+	}
+	@GetMapping("{userId}/favorite")
+	public @ResponseBody List<Book> findFavoriteBook(@PathVariable("userId") Integer userId){
+		return bs.getFavoriteBook(userId);
+	}
+	@GetMapping("{pageNum}/findhotbook")
+	public @ResponseBody List<HotBook> findHotBookByPage(@PathVariable("pageNum") Integer pageNum){
+		return bs.getHotBookByPage(pageNum);
+	}
+	@GetMapping("kind/{bookKind}")
+	public @ResponseBody List<Book> findBookByKind(@PathVariable("bookKind") String bookKind){
+		return bs.getBookByKind(bookKind);
+	}
+	@GetMapping("author/{author}")
+	public @ResponseBody List<Book> findBookByAuthor(@PathVariable("author") String author){
+		return bs.getBookByAuthor(author);
+	}
+}

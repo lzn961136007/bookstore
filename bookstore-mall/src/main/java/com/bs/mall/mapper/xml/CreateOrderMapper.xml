@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.CreateOrderMapper">
+			
+			<!--向订单表添加数据  -->
+			<insert id="insertOrder" parameterType="com.bs.mall.pojo.CreateOrder">
+			insert into t_order(<include refid="CreateOrder"/>) value(#{order.orderId},#{order.expressId},#{order.receiveAddressId},#{order.userId},#{order.orderTime},#{order.orderStatus},#{order.totalPrice})
+			
+			</insert>
+			<!--向订单书籍中间表添加数据  -->
+			<insert id="addOrderToBookId" parameterType="com.bs.mall.pojo.Cart" >
+			  insert into t_book_order(order_id,book_id,book_num) values
+				  <foreach item="carts" collection="carts" separator=",">
+				    (#{orderId},#{carts.bookId},#{carts.bookNum})
+				  </foreach>		
+			</insert>
+			
+			
+			<!--添加用户收货地址的sql语句  -->
+			<insert id="insertOrderAddress" parameterType="com.bs.mall.pojo.ReceiveAddress">
+			insert into t_order_address(<include refid="receiceAddress"/>) values(#{address.addressId},#{address.userId},#{address.addressMobile},#{address.addressConsignee},#{address.addressProvince},#{address.addressCity},#{address.addressCounty},#{address.addressDetail})
+			</insert>
+			
+			<!--用户支付成功积分增加  -->
+			<update id="insertUserScore">
+			 update t_user set user_score=#{score}  where user_id = #{userId};		
+			</update>	
+	
+	<sql id="CreateOrder"> order_id,express_id,address_id,user_id,order_time,order_status,total_price</sql>
+   <sql id="receiceAddress">address_id,user_id,address_mobile,address_consignee,address_province,address_city,address_county,address_detail</sql>
+</mapper>

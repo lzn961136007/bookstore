@@ -1,0 +1,62 @@
+package com.bs.mall.service.impl;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bs.mall.dao.CreateOrderDao;
+import com.bs.mall.pojo.Cart;
+import com.bs.mall.pojo.CreateOrder;
+import com.bs.mall.pojo.ReceiveAddress;
+import com.bs.mall.service.CreateOrderService;
+import com.bs.mall.util.CreateOrderId;
+@Service
+public class CreateOrderServiceImpl implements CreateOrderService {
+	@Autowired
+	private CreateOrderDao cd;
+
+	@Override
+	public boolean addOrder(CreateOrder order) {
+		String orderId = CreateOrderId.getOrderIdByUUId();
+		order.setOrderId(orderId);
+		boolean a=false;
+		boolean b=false;
+		if(cd.addOrder(order)!=0){
+			a=true;
+			
+		}
+		//获取书籍Id的集合
+		List<Cart> carts = order.getCarts();
+		for (Cart integer : carts) {
+			System.out.println("servicesImplbooksId:"+carts);	
+		}
+		
+		//向订单书籍中间表添加数据
+		if(a){
+		if(cd.addOrderToBookId(carts,orderId)!=0){
+			b=true;
+		}
+		}
+		//还回值
+		if(a&&b){
+		return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean addOrderAddress(ReceiveAddress address) {
+		if(cd.insertOrderAddress(address)==1){
+			return true;
+		}
+		else{
+			return false;	
+		}
+		
+	}
+	
+
+
+}

@@ -1,0 +1,95 @@
+package com.bs.mall.pojo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Book {
+	private Integer primaryId;
+	private Integer bookId;
+	private String bookName;
+	private String bookCategory;
+	private Double bookSalesPrice;
+	private String bookProfile;
+	private String bookCoverImage;
+	private Integer bookStatus;
+	private Publish bookPublish;
+	private Printer bookPrinter;
+	private String bookNum;
+	private List<Author> bookAuthor=new ArrayList<>();
+	
+	public String getBookNum() {
+		return bookNum;
+	}
+	public void setBookNum(String bookNum) {
+		this.bookNum = bookNum;
+	}
+	public Integer getPrimaryId() {
+		return primaryId;
+	}
+	public void setPrimaryId(Integer primaryId) {
+		this.primaryId = primaryId;
+	}
+	public Integer getBookId() {
+		return bookId;
+	}
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+	public String getBookCategory() {
+		return bookCategory;
+	}
+	public void setBookCategory(String bookCategory) {
+		this.bookCategory = bookCategory;
+	}
+	
+	public Double getBookSalesPrice() {
+		return bookSalesPrice;
+	}
+	public void setBookSalesPrice(Double bookSalesPrice) {
+		this.bookSalesPrice = bookSalesPrice;
+	}
+	public String getBookProfile() {
+		return bookProfile;
+	}
+	public void setBookProfile(String bookProfile) {
+		this.bookProfile = bookProfile;
+	}
+	public String getBookCoverImage() {
+		return bookCoverImage;
+	}
+	public void setBookCoverImage(String bookCoverImage) {
+		this.bookCoverImage = bookCoverImage;
+	}
+	public Integer getBookStatus() {
+		return bookStatus;
+	}
+	public void setBookStatus(Integer bookStatus) {
+		this.bookStatus = bookStatus;
+	}
+		public Publish getBookPublish() {
+		return bookPublish;
+	}
+	public void setBookPublish(Publish bookPublish) {
+		this.bookPublish = bookPublish;
+	}
+	public Printer getBookPrinter() {
+		return bookPrinter;
+	}
+	public void setBookPrinter(Printer bookPrinter) {
+		this.bookPrinter = bookPrinter;
+	}
+	public List<Author> getBookAuthor() {
+		return bookAuthor;
+	}
+	public void setBookAuthor(List<Author> bookAuthor) {
+		this.bookAuthor = bookAuthor;
+	}
+
+	
+}

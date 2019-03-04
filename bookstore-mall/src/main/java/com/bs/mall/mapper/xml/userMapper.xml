@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bs.mall.mapper.UserMapper">
+<!--用戶登陆  -->
+	<select id="getUserByUser" resultMap="userResultMap">
+		select <include refid="userColumns"/> from t_user where user_password=#{password} and user_email=#{email} 
+	</select>
+	
+	<!-- 用户注册时查询邮箱是否被注册 -->
+	<select id="getUSerByExistEmail" resultMap="userResultMap">
+		select <include refid="userColumns"/> from t_user where user_email=#{email} 
+	</select>
+	<!-- 用户注册时查询用户名是否被注册 -->
+	<select id="getUSerByUserExistName" resultMap="userResultMap">
+		select <include refid="userColumns"/> from t_user where user_name=#{username} 
+	</select>
+	<!--用户注册成功后修改用户状态  -->
+	<update id="updateByStatus" parameterType="user">
+		update t_user set user_is_active=#{active} where user_email=#{email}
+	</update>
+	<!-- 用户注册成功添加用户信息 -->
+	<insert id="addUserByUSer">
+		<!-- insert into t_user(user_email,user_name,user_password) values(#{email},#{username},#{password}) -->
+		insert into t_user(<include refid="userPrototy"/>) values(<include refid="userVal"/>)
+	</insert>
+	<!-- 用户忘记密码时通过邮箱找回密码，判断邮箱是否注册 -->
+	<select id="getSelectByUserPhone" resultMap="userResultMap">
+		select <include refid="userColumns"/> from t_user where user_email=#{email}
+	</select>
+	
+	<select id="selectuserColumn" resultMap="userResultMap">
+		select <include refid="userColumns"/> from t_user where user_email = #{email} and user_password=#{password}
+	</select>
+	
+	
+	<select id="selectUserById" resultMap="userResultMap">
+		select <include refid="userColumns"/> from t_user where user_id = #{userId}
+	</select>
+	<!-- 查询用户是否有券 -->
+	<select id="selectUserCoupon" resultMap="resultUserGetCoupon">
+		select <include refid="userGetCouponColumn"/> from t_user_get_coupon 
+		where user_id = #{userId} and coupon_id = #{couponId}
+	</select> 
+	<!-- 新用户领券 -->
+	<insert id="insertCoupon">
+		insert into t_user_get_coupon(<include refid="userCouponColumn"/>) values (<include refid="userCouponValue"/>)
+	</insert>
+	<!-- 用户余额修改 -->
+	<update id="updateUserbalance" parameterType="com.bs.mall.pojo.User">
+		UPDATE t_user SET user_balance = #{user.balance} WHERE user_id = #{user.id}
+	</update>
+
+	
+	<!-- 用户修改个人信息  -->
+	<update id="updateUserInfomation" parameterType="com.bs.mall.pojo.User">	
+	  update t_user
+    <set>
+      <if test="user.username != null">user_name=#{user.username},</if>
+		<if test="user.sex != null">user_sex=#{user.sex},</if>
+      <if test="user.password != null">user_password=#{user.password},</if>
+      <if test="user.birthday != null">user_birthday=#{user.birthday},</if>
+      <if test="user.address != null">user_address=#{user.address},</if>
+      <if test="user.phone != null">user_phone=#{user.phone},</if>
+      <if test="user.signature != null">user_signature=#{user.signature},</if>
+      <if test="user.email != null">user_email=#{user.email}</if>
+    </set>
+  		where  user_id=#{user.userId};
+	</update>
+	
+	<!--用户手机号的重复验证  -->
+	<select id="selectPhone" resultMap="phoneMap">
+	select user_phone from t_user where user_phone = #{phone};
+	</select>
+	
+	<resultMap type="java.lang.String" id="phoneMap" autoMapping="true"></resultMap>
+	
+	
+	<resultMap type="com.bs.mall.pojo.UserGetCoupon" id="resultUserGetCoupon">
+		<id column="coupon_get_id" property="CouponGetId"/>
+		<result column="user_id" property="UserId"/>
+		<result column="coupon_id" property="CouponId"/>
+		<result column="coupon_get_time" property="CouponGetTime"/>
+		<result column="coupon_use_time" property="CouponUseTime"/>
+	</resultMap>
+  <resultMap type="user" id="userResultMap" >
+  	<id column="user_id" property="userId"/>
+  	<result column="user_name" property="username"/>
+  	<result column="user_password" property="password"/>
+  	<result column="user_email" property="email"/>
+  	<result column="user_phone" property="phone"/>
+  	<result column="user_level" property="level"/>
+  	<result column="user_score" property="score"/>
+  	<result column="user_balance" property="balance"/>
+  	<result column="user_register_date" property="registerDate"/>
+  	<result column="user_last_loginTime" property="lastLoginTime"/>
+  	<result column="user_is_active" property="active"/>
+  	<result column="user_code" property="code"/>
+  	<result column="user_cart_status" property="cartStatus"/>
+  	<result column="user_sex" property="sex"/>
+  	<result column="user_age" property="age"/>
+  	<result column="user_birthday" property="birthday"/>
+  	<result column="user_address" property="address"/>
+  	<result column="user_signature" property="signature"/>	
+  </resultMap>
+  
+  
+  <sql id="userGetCouponColumn">coupon_get_id,user_id,coupon_id,coupon_get_time,coupon_use_time</sql>
+  <sql id="userCouponColumn">user_id,coupon_id,coupon_get_time</sql>
+  <sql id="userCouponValue">#{userId},#{couponId},#{date}</sql>
+  
+  <sql id="userPrototy">
+  	user_email,user_name,user_password,user_register_date
+  </sql>
+  <sql id="userVal">
+  	#{email},#{username},#{password},#{registerDate}
+  </sql>
+  <sql id="userColumns">
+  user_id,user_name,user_password,user_email,user_phone,user_level,user_score,user_balance,user_register_date,user_last_loginTime,user_is_active,user_code,user_cart_status,user_sex,user_age,user_birthday,user_address,user_signature
+  </sql>
+  <sql id="userValues">
+  #{userId},#{username},#{password},#{email},#{phone},#{level},#{score},#{balance},#{registerDate},#{lastLoginTime},#{active},#{code},#{cartStatus},#{sex},#{age},#{birthday},#{address},#{signature}
+  </sql>
+  
+</mapper>

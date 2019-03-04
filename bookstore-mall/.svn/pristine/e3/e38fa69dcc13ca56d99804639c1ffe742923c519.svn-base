@@ -1,0 +1,27 @@
+package com.bs.mall.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bs.mall.pojo.Comment;
+import com.bs.mall.service.CommentService;
+import com.bs.mall.util.JsonData;
+
+@RestController
+public class CommentController {
+	@Autowired
+	private CommentService cs;
+	@GetMapping("{userId}/comment")
+	public List<Comment> findCommentByUserId(@PathVariable("userId") Integer userId){
+		return cs.getCommentByUserId(userId);
+	}
+	@GetMapping("deletecomment/{userId}/{bookId}")
+	public JsonData deleteComment(@PathVariable("userId") Integer userId,@PathVariable("bookId") Integer bookId){
+		Boolean status = cs.deleteComment(userId, bookId);
+		return new JsonData(null, null, "删除成功", status);
+	}
+}

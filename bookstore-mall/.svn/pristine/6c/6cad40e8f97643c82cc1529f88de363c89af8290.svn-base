@@ -1,0 +1,120 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 480104 bytes for AllocateHeap
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (memory/allocation.inline.hpp:61), pid=5084, tid=0x0000000000002838
+#
+# JRE version:  (8.0_151-b12) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.151-b12 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000002a33800):  JavaThread "Unknown thread" [_thread_in_vm, id=10296, stack(0x0000000002590000,0x0000000002690000)]
+
+Stack: [0x0000000002590000,0x0000000002690000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x0000000002a33800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=10296, stack(0x0000000002590000,0x0000000002690000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff7e87f0000 - 0x00007ff7e8827000 	C:\Program Files\Java\jdk1.8.0_151\bin\javaw.exe
+0x00007ffdf0110000 - 0x00007ffdf02f1000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffdf0020000 - 0x00007ffdf00d2000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffded170000 - 0x00007ffded3e3000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffdef470000 - 0x00007ffdef511000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffdeef40000 - 0x00007ffdeefde000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffdeea90000 - 0x00007ffdeeaeb000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffdefe70000 - 0x00007ffdeff94000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffdefcb0000 - 0x00007ffdefe40000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffded4d0000 - 0x00007ffded4f0000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffdefe40000 - 0x00007ffdefe68000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffdec680000 - 0x00007ffdec812000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffdec4e0000 - 0x00007ffdec57f000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffdec580000 - 0x00007ffdec67a000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffde4380000 - 0x00007ffde45e9000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.17134.471_none_fb3e9aab3068fc16\COMCTL32.dll
+0x00007ffdef140000 - 0x00007ffdef462000 	C:\WINDOWS\System32\combase.dll
+0x00007ffded3f0000 - 0x00007ffded46a000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffdefc70000 - 0x00007ffdefc9d000 	C:\WINDOWS\System32\IMM32.DLL
+0x0000000064170000 - 0x0000000064242000 	C:\Program Files\Java\jdk1.8.0_151\jre\bin\msvcr100.dll
+0x00000000638d0000 - 0x000000006416d000 	C:\Program Files\Java\jdk1.8.0_151\jre\bin\server\jvm.dll
+0x00007ffdefa20000 - 0x00007ffdefa28000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffde5660000 - 0x00007ffde5683000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffde2000000 - 0x00007ffde200a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffde6720000 - 0x00007ffde6729000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffdef0d0000 - 0x00007ffdef13c000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffde5630000 - 0x00007ffde565a000 	C:\WINDOWS\SYSTEM32\winmmbase.dll
+0x00007ffded120000 - 0x00007ffded169000 	C:\WINDOWS\System32\cfgmgr32.dll
+0x00000000638c0000 - 0x00000000638cf000 	C:\Program Files\Java\jdk1.8.0_151\jre\bin\verify.dll
+0x0000000063890000 - 0x00000000638b9000 	C:\Program Files\Java\jdk1.8.0_151\jre\bin\java.dll
+0x0000000063870000 - 0x0000000063886000 	C:\Program Files\Java\jdk1.8.0_151\jre\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF-8 
+java_command: com.bs.mall.util.SendEmail
+java_class_path (initial): E:\project\bookstore-mall\target\classes;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\javax\javaee-api\8.0\javaee-api-8.0.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\glassfish\web\javax.servlet.jsp.jstl\1.2.2\javax.servlet.jsp.jstl-1.2.2.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\javax\servlet\jsp\jstl\jstl-api\1.2\jstl-api-1.2.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\javax\servlet\servlet-api\2.5\servlet-api-2.5.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\javax\servlet\jsp\jsp-api\2.1\jsp-api-2.1.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-context\4.3.20.RELEASE\spring-context-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-aop\4.3.20.RELEASE\spring-aop-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-beans\4.3.20.RELEASE\spring-beans-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-core\4.3.20.RELEASE\spring-core-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-expression\4.3.20.RELEASE\spring-expression-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-webmvc\4.3.20.RELEASE\spring-webmvc-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-web\4.3.20.RELEASE\spring-web-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-aspects\4.3.20.RELEASE\spring-aspects-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\aspectj\aspectjweaver\1.8.9\aspectjweaver-1.8.9.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-jdbc\4.3.20.RELEASE\spring-jdbc-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclipse\apache-maven-3.5.0\restory\org\springframework\spring-tx\4.3.20.RELEASE\spring-tx-4.3.20.RELEASE.jar;D:\JAVA\javaMyEclip
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_151
+CLASSPATH=.;C:\Program Files\Java\jdk1.8.0_151\lib;C:\Program Files\Java\jdk1.8.0_151\lib\tools.jar;C:\Program Files\Java\jdk1.8.0_151\bin
+PATH=C:/Program Files/Java/jre1.8.0_151/bin/server;C:/Program Files/Java/jre1.8.0_151/bin;C:/Program Files/Java/jre1.8.0_151/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_151\bin;C:\Program Files\Java\jdk1.8.0_151\jre\bin;D:\Maven\apache-maven-3.5.3\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\MySQL\MySQL Server 5.6\bin;D:\JAVA\javaMyEclipse\Git\cmd;C:\Program Files\VisualSVN Server\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\TortoiseGit\bin;C:\Program Files\Java\jdk1.8.0_151\bin;C:\Users\dell\AppData\Local\GitHubDesktop\bin;D:\JAVA\javaMyEclipse\eclipse-neon3;
+USERNAME=dell
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 69 Stepping 1, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 17134 (10.0.17134.1)
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 69 stepping 1, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2
+
+Memory: 4k page, physical 6187596k(874032k free), swap 6187596k(5144k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.151-b12) for windows-amd64 JRE (1.8.0_151-b12), built on Sep  5 2017 19:33:46 by "java_re" with MS VC++ 10.0 (VS2010)
+
+time: Thu Dec 13 15:25:53 2018
+elapsed time: 0 seconds (0d 0h 0m 0s)
+

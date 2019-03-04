@@ -1,0 +1,112 @@
+package com.bs.mall.pojo;
+
+public class Cart {
+	private Integer cartId;
+	private Integer bookId;
+	private Integer userId;
+	private String imgUrl;
+	private String bookName;
+	private String bookPrice;
+	private Boolean isStatus;
+	private String bookNum;
+	private Integer discountPrice;
+	
+	
+	public Integer getDiscountPrice() {
+		return discountPrice;
+	}
+
+	public void setDiscountPrice(Integer discountPrice) {
+		this.discountPrice = discountPrice;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
+	}
+
+	public Integer getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getBookName() {
+		return bookName;
+	}
+
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+
+	public String getBookPrice() {
+		return bookPrice;
+	}
+
+	public void setBookPrice(String book_price) {
+		this.bookPrice = book_price;
+	}
+
+	public Boolean getIsStatus() {
+		return isStatus;
+	}
+
+	public void setIsStatus(Boolean isStatus) {
+		this.isStatus = isStatus;
+	}
+
+	public String getBookNum() {
+		return bookNum;
+	}
+
+	public void setBookNum(String bookNum) {
+		this.bookNum = bookNum;
+	}
+
+	public Cart(Integer cartId, Integer bookId,Integer userId, String imgUrl, String bookName, String bookPrice, Boolean isStatus,
+			String bookNum,Integer discountPrice) {
+		super();
+		this.cartId = cartId;
+		this.bookId = bookId;
+		this.userId = userId;
+		this.imgUrl = imgUrl;
+		this.bookName = bookName;
+		this.bookPrice = bookPrice;
+		this.isStatus = isStatus;
+		this.bookNum = bookNum;
+		this.discountPrice=discountPrice;
+	}
+
+	public Cart() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Cart [cartId=" + cartId + ", bookId=" + bookId + ",userId="+userId+", imgUrl=" + imgUrl + ", bookName=" + bookName
+				+ ", book_price=" + bookPrice + ", isStatus=" + isStatus + ", bookNum=" + bookNum + ",discountPrice"+discountPrice+"]";
+	}
+
+}

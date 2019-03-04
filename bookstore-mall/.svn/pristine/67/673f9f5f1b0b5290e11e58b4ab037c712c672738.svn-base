@@ -1,0 +1,25 @@
+package com.bs.mall.service.impl;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bs.mall.dao.CartDao;
+import com.bs.mall.dao.OrderCommentDao;
+import com.bs.mall.pojo.OrderComment;
+import com.bs.mall.service.OrderCommentService;
+@Service
+public class OrderCommentServiceImpl implements OrderCommentService {
+	@Autowired
+	private OrderCommentDao od;
+
+	@Override
+	public boolean insertOrderComment(OrderComment evalution) {
+		if(od.addOrderComment(evalution)==1){
+			return true;
+		}
+		return false;
+	}
+	
+	
+}

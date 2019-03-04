@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.ExpressMapper">
+	
+	<!-- 用货运方式数据查询 -->
+	<select id="selectExpress" resultMap="resultExpress">
+		SELECT  <include refid="expressColumn"></include> FROM t_express;	
+	</select>
+		
+	<resultMap type="com.bs.mall.pojo.Express" id="resultExpress" autoMapping="true">
+		<!-- <result column="expressId" property="express_id"/>
+		<result column="expressNumbers" property="experss_numbers"/>
+		<result column="expressName" property="experss_name"/>	
+		<result column="expressCost" property="experss_cost"/>
+		<result column="expressStatus" property="experss_status"/> -->
+	</resultMap>
+
+	
+	<sql id="expressColumn">express_id,express_name,express_numbers,express_cost,express_status</sql>
+  
+</mapper>

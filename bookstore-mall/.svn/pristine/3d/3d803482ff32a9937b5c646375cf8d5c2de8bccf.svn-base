@@ -1,0 +1,62 @@
+package com.bs.mall.pojo;
+
+public class CommentAdd {
+	private Integer bookId;
+	private Integer userId;
+	private String commentContent;
+	private String commentDataTime;
+	private String userName;
+	public Integer getBookId() {
+		return bookId;
+	}
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getCommentContent() {
+		return commentContent;
+	}
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+	public String getCommentDataTime() {
+		return commentDataTime;
+	}
+	public void setCommentDataTime(String commentDataTime) {
+		this.commentDataTime = commentDataTime;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	@Override
+	public String toString() {
+		return "CommentAdd [bookId=" + bookId + ", userId=" + userId + ", commentContent=" + commentContent
+				+ ", commentDataTime=" + commentDataTime + ", userName=" + userName + ", getBookId()=" + getBookId()
+				+ ", getUserId()=" + getUserId() + ", getCommentContent()=" + getCommentContent()
+				+ ", getCommentDataTime()=" + getCommentDataTime() + ", getUserName()=" + getUserName()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+	public CommentAdd(Integer bookId, Integer userId, String commentContent, String commentDataTime, String userName) {
+		super();
+		this.bookId = bookId;
+		this.userId = userId;
+		this.commentContent = commentContent;
+		this.commentDataTime = commentDataTime;
+		this.userName = userName;
+	}
+	public CommentAdd() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+
+}

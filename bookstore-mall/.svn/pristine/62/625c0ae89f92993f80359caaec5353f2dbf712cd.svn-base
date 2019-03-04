@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bs.mall.mapper.MemberMapper">
+	<select id="selectAllMember" resultType="com.bs.mall.pojo.Member">
+		select <include refid="memberColumn"/> from t_member
+	</select>
+	<select id="selectAllRecordByUserId" resultMap="resultMemberRecord">
+		select <include refid="memberRecordColumn"/> from t_member m,t_user u,t_user_member um where 
+		m.member_id = um.member_id and um.user_id = u.user_id and um.user_id = #{userId}
+	</select>
+	<insert id="insertMemberUser">
+		insert into t_user_member (<include refid="userTomember"/>) values(#{userId},#{memberId},#{createTime})
+	</insert>
+	<resultMap type="com.bs.mall.pojo.MemberRecord" id="resultMemberRecord">
+		<id column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="member_id" property="memberId"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_money" property="memberMoney"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+	<sql id="memberRecordColumn">um.user_id,um.member_id,u.user_name,m.member_name,m.member_money,um.create_time </sql>
+	<sql id="memberColumn">member_primary_id,member_id,member_name,member_money,member_book</sql>
+	<sql id="userTomember">user_id,member_id,create_time</sql>
+</mapper>

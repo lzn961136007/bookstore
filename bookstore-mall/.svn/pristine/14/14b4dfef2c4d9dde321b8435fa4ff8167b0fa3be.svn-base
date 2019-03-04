@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.ManagerOrderMapper">
+	
+	
+	<!-- 用订单数据查询-->
+	<select id="getOrderUserId" resultMap="resulOrder">
+		SELECT <include refid="orderColumn"/> FROM t_order o,t_book_order bo,t_book b WHERE o.user_id=#{userId} and o.order_id=bo.order_id and bo.book_id=b.book_id;		
+	</select>
+	
+	<!-- 查询未完成订单 -->
+	<select id="getOrderNoComment" resultType="com.bs.mall.pojo.Order">
+		SELECT <include refid="orderNoComment"/> FROM t_order WHERE user_id=#{userId} and order_status = #{orderStatus};		
+	</select>
+	
+	<!--修改order表对应的状态  -->
+	<update id="updateOrders">
+	update t_order set order_status = #{orderStatus} where order_id=#{orderId};
+	</update>
+
+		<!--查询指定订单的详细信息  -->
+
+		<select id="getOrderDetails" resultMap="resulOrderDetails">
+		select <include refid="orderDetails"/> from t_order o,t_book_order bo,t_book b,t_express e,t_order_address ra where o.order_id=#{orderId} and o.user_id=#{userId} and o.order_id=bo.order_id and o.address_id=ra.address_id and o.express_id=e.express_id GROUP BY order_id;		
+		</select>
+		
+		<!--查询指定订单下的所有商品信息  -->
+		<select id="getAllOrderBooks" resultMap="resulBooks">
+		select <include refid="booksColumn"/> from t_order o, t_book_order bo,t_book b where o.order_id=#{orderId} and o.user_id=#{userId} and bo.order_id=o.order_id and bo.book_id=b.book_id group by book_id;
+		</select>
+		
+		<!-- 订单的匹配 -->
+	<resultMap type="com.bs.mall.pojo.Order" id="resulOrder">
+		<result column="order_id" property="orderId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+		<result column="order_status" property="orderStatus"/>
+		<result column="total_price" property="totalPrivce"/>
+		<result column="book_num" property="bookNum"/>	
+	</resultMap>
+
+	<!-- 订单详情的匹配 -->
+	<resultMap type="com.bs.mall.pojo.OrderDetail" id="resulOrderDetails" autoMapping="true">	
+	</resultMap>
+	
+	<!-- 商品详情的匹配 -->
+	<resultMap type="com.bs.mall.pojo.Book" id="resulBooks" autoMapping="true">
+	</resultMap>
+	<sql id="orderNoComment">order_id,user_id,order_time,total_price</sql>
+    <sql id="orderColumn">o.order_id,bo.book_id,b.book_name,b.book_cover_image,b.book_sales_price,o.order_status,o.total_price,bo.book_num</sql>
+    <sql id="orderDetails">e.express_id,e.express_name,e.express_status,ra.address_id,ra.address_mobile,ra.address_consignee,ra.address_province,ra.address_city,ra.address_county,ra.address_detail,o.order_id,o.order_time,o.order_status,o.total_price</sql>
+	<sql id="booksColumn">b.book_id,b.book_cover_image,b.book_name,b.book_sales_price,bo.book_num</sql>
+</mapper>

@@ -1,0 +1,12 @@
+package com.bs.mall.mapper;
+
+import java.util.List;
+
+import com.bs.mall.pojo.Coupon;
+
+public interface CouponMapper {
+	//查询优惠券种类
+	List<Coupon> selectAllInfo(String kind);
+	//用户领券的限制查询
+	Coupon selectUserGetCoupon(Integer couponId);
+}

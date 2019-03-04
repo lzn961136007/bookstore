@@ -1,0 +1,127 @@
+package com.bs.mall.pojo;
+
+public class Order {
+
+	private String orderId;
+	private Integer userId;
+	private Integer bookId;
+	private String bookName;
+	private String bookProfile;
+	private String bookCoverImage;
+	private double bookSalesPrice;
+	private String orderStatus;
+	private String totalPrivce;
+	private String bookNum;
+
+	
+	
+	
+	public String getBookProfile() {
+		return bookProfile;
+	}
+
+	public void setBookProfile(String bookProfile) {
+		this.bookProfile = bookProfile;
+	}
+
+	public String getBookCoverImage() {
+		return bookCoverImage;
+	}
+
+	public void setBookCoverImage(String bookCoverImage) {
+		this.bookCoverImage = bookCoverImage;
+	}
+
+	public double getBookSalesPrice() {
+		return bookSalesPrice;
+	}
+
+	public void setBookSalesPrice(double bookSalesPrice) {
+		this.bookSalesPrice = bookSalesPrice;
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Integer getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+
+	public String getBookName() {
+		return bookName;
+	}
+
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+
+	public String getTotalPrivce() {
+		return totalPrivce;
+	}
+
+	public void setTotalPrivce(String totalPrivce) {
+		this.totalPrivce = totalPrivce;
+	}
+
+	public String getBookNum() {
+		return bookNum;
+	}
+
+	public void setBookNum(String bookNum) {
+		this.bookNum = bookNum;
+	}
+
+	public Order(String orderId, Integer userId, Integer bookId, String orderStatus,String bookProfile ,String bookCoverImage, String bookName,
+			double  bookSalesPrice, String totalPrivce, String bookNum) {
+		super();
+		this.orderId = orderId;
+		this.userId = userId;
+		this.bookId = bookId;
+		this.orderStatus = orderStatus;
+		this.bookCoverImage = bookCoverImage;
+		this.bookProfile=bookProfile;
+		this.bookName = bookName;
+		this.bookSalesPrice = bookSalesPrice;
+		this.totalPrivce = totalPrivce;
+		this.bookNum = bookNum;
+	}
+
+	public Order() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", userId=" + userId + ", bookId=" + bookId + ", orderStatus="
+				+ orderStatus +",bookProfile="+bookProfile+ ", bookCoverImage=" + bookCoverImage + ", bookName=" + bookName + ", bookSalesPrice=" + bookSalesPrice
+				+ ", totalPrivce=" + totalPrivce + ", bookNum=" + bookNum + "]";
+	}
+
+}

@@ -1,0 +1,27 @@
+package com.bs.mall.dao;
+
+
+import com.bs.mall.pojo.User;
+import com.bs.mall.pojo.UserGetCoupon;
+public interface UserDao {
+	User selectUser(String email,String password);
+	
+	User selectUserIsExist(String email,String username);
+	
+	Integer insertUser(String email,String username,String password,String registerDate);
+	
+	User selectByUserPhone(String email);
+	
+	Integer updateUser(String email,String password);
+	
+	User referUserById(Integer userId);
+	
+	UserGetCoupon referUserGetCoupon(Integer userId,Integer couponId);
+	
+	Integer augmentUserGetCoupon(Integer userId,Integer couponId,String date);
+	
+	Integer renewalUserBalance(User user);
+
+//修改用户数据
+	/*Integer editorUserInfomation(User user);*/
+}

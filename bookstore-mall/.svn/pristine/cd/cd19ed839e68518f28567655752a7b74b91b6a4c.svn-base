@@ -1,0 +1,47 @@
+package com.bs.mall.pojo;
+
+public class OrderComment {
+	private Integer primaryId;
+	private String orderId;
+	private Integer userId;
+	private String orderCommentContent;
+	private Integer orderCommentScore;
+	private String orderCommentCreatetime;
+	public Integer getPrimaryId() {
+		return primaryId;
+	}
+	public void setPrimaryId(Integer primaryId) {
+		this.primaryId = primaryId;
+	}
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getOrderCommentContent() {
+		return orderCommentContent;
+	}
+	public void setOrderCommentContent(String orderCommentContent) {
+		this.orderCommentContent = orderCommentContent;
+	}
+	public Integer getOrderCommentScore() {
+		return orderCommentScore;
+	}
+	public void setOrderCommentScore(Integer orderCommentScore) {
+		this.orderCommentScore = orderCommentScore;
+	}
+	public String getOrderCommentCreatetime() {
+		return orderCommentCreatetime;
+	}
+	public void setOrderCommentCreatetime(String orderCommentCreatetime) {
+		this.orderCommentCreatetime = orderCommentCreatetime;
+	}
+	
+}	

@@ -1,0 +1,17 @@
+#微信小程序的配置信息
+appid=wx15fc93659302fda3
+secret=ad1ead1c55fa0ac125fa9f8ca0902de5
+grant_type=authorization_code
+wxUrl=https://api.weixin.qq.com/sns/jscode2session
+#测试数据
+mch_id=1230000109
+#商户的支付key
+mch_key=88888888888888888
+#微信下单通知地址
+notify_url=http://192.168.10.110:8080/bookstore-mall/pay
+#交易类型
+trade_type=JSAPI
+#交易币种
+fee_type=CNY
+#签名加密方式
+sign_type=MD5

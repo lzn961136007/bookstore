@@ -1,0 +1,46 @@
+package com.bs.mall.mapper;
+
+
+import org.apache.ibatis.annotations.Param;
+
+import com.bs.mall.pojo.User;
+import com.bs.mall.pojo.UserGetCoupon;
+public interface UserMapper {
+	//登陆时
+	//@Param用于获取请求的参数
+	User getUserByUser(@Param("email")String email,@Param("password")String password);
+	//注册时邮箱是否已被注册
+	User getUSerByExistEmail(@Param("email")String email);
+	//注册时用户名是否已被注册
+	User getUSerByUserExistName(@Param("username")String username);
+	//改变状态
+	Integer updateByStatus(@Param("email")String email,@Param("active")String active);
+	//注册时添加到数据库
+	Integer addUserByUSer(@Param("email")String email,@Param("username")String username,@Param("password")String password,@Param("registerDate")String registerDate);
+	//修改时查询邮箱是否注册
+	User getSelectByUserPhone(@Param("email")String email);
+	
+	//根据邮箱查询密码
+	User selectUserName(@Param("email")String email);
+	
+	User selectuserColumn(@Param("email")String email,@Param("password")String password);
+	//修改时添加到数据库
+	Integer updateUserByUser(@Param("email")String email,@Param("password")String password);
+	//用户领券
+	Integer insertCoupon(@Param("userId") Integer userId,@Param("couponId") Integer couponId,@Param("date") String date);
+	//获取用户信息
+	User selectUserById(Integer userId);
+	//判断用户是否领完券
+	UserGetCoupon selectUserCoupon(@Param("userId") Integer userId,@Param("couponId") Integer couponId); 
+	//修改用户余额
+	Integer updateUserbalance(User user);
+	
+
+	/**
+	 * 用户修改个人信息
+	 * @param user
+	 * @return
+	 */
+	Integer updateUserInfomation(@Param("user")User user);
+}
+

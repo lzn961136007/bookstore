@@ -1,0 +1,30 @@
+package com.bs.mall.dao.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.bs.mall.dao.CartDao;
+import com.bs.mall.mapper.CartMapper;
+import com.bs.mall.pojo.Cart;
+@Repository
+public class CartDaoImpl implements CartDao {
+	@Autowired
+	private CartMapper cm;
+	@Override
+	public List<Cart> referCartByUserId(Integer userId) {
+		
+		return cm.selectCartByUserId(userId);
+	}
+	@Override
+	public Integer addCart(List<Cart> Carts) {
+		return cm.addCart(Carts);
+	}
+	@Override
+	public Integer delCart(Integer userId) {
+		return cm.delCart(userId);
+	}
+
+
+}

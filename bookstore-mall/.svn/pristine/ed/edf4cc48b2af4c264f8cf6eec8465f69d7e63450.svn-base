@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.bs.mall.mapper.UtilMapper">
+ 	<select id="judgeColumnExist" resultType="java.lang.Integer">
+ 		SELECT COUNT(*) FROM ${tableName} WHERE ${column1} = #{column1Value} AND ${column2} = #{column2Value}
+ 	</select>
+ </mapper>

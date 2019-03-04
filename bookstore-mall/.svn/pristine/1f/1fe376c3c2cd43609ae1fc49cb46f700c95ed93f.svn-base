@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.CommentMapper">
+	<select id="selectCommentInfo" resultMap="resultComment">
+		SELECT <include refid="commentColumn"/> 
+		FROM t_book b,t_comment c 
+		WHERE c.book_id = b.book_id 
+		AND c.user_id = #{userId}
+	</select>
+	<delete id="cancelComment">
+		delete from t_comment where user_id = #{userId} and book_id = #{bookId}
+	</delete>
+	<resultMap type="com.bs.mall.pojo.Comment" id="resultComment">
+		<id column="primary_id" property="primaryId"/> 
+		<result column="comment_id" property="commentId"/>
+		<result column="comment_content" property="commentContent"/>
+		<result column="comment_datatime" property="commentDatatime"/>
+		<result column="comment_reply" property="commentReply"/>
+		<result column="comment_grade" property="commentGrade"/>
+		<result column="comment_reply_datatime" property="commentReplyDatatime"/>
+		<collection property="books" column="book_id" ofType="com.bs.mall.pojo.Book">
+			<result column="book_id" property="bookId"/>
+			<result column="book_name" property="bookName"/>
+		</collection>
+	</resultMap>
+	<select id="selectOrderCommentInfo" resultType="com.bs.mall.pojo.OrderComment">
+		select <include refid="orderCommentColumn"/> from t_order_comment where user_id = #{userId}
+	</select>
+	<delete id="cancelOrderComment">
+		delete from t_order_comment where user_id = #{userId} and order_id = #{orderId}
+	</delete>
+	<sql id="orderCommentColumn">primary_id,user_id,order_id,order_comment_content,order_comment_score,order_comment_createtime</sql>
+	<sql id="commentColumn">b.book_name,c.primary_id,c.comment_id,c.comment_content,c.comment_datatime,c.comment_reply,c.comment_reply_datatime,c.user_id,c.book_id,c.comment_grade </sql>
+</mapper>

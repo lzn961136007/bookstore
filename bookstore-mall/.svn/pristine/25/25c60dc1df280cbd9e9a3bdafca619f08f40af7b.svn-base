@@ -1,0 +1,46 @@
+package com.bs.mall.pojo;
+
+public class HotBook {
+	private Integer bookId;
+	private String bookName;
+	private String bookCoverImage;
+	private String authorName;
+	private Integer totalSales;
+	private Double bookSalesPrice;
+	public Integer getBookId() {
+		return bookId;
+	}
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+	public String getBookCoverImage() {
+		return bookCoverImage;
+	}
+	public void setBookCoverImage(String bookCoverImage) {
+		this.bookCoverImage = bookCoverImage;
+	}
+	public String getAuthorName() {
+		return authorName;
+	}
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+	public Integer getTotalSales() {
+		return totalSales;
+	}
+	public void setTotalSales(Integer totalSales) {
+		this.totalSales = totalSales;
+	}
+	public Double getBookSalesPrice() {
+		return bookSalesPrice;
+	}
+	public void setBookSalesPrice(Double bookSalesPrice) {
+		this.bookSalesPrice = bookSalesPrice;
+	}
+}

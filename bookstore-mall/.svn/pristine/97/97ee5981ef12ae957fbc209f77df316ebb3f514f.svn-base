@@ -1,0 +1,55 @@
+package com.bs.mall.dao.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.bs.mall.dao.BookDao;
+import com.bs.mall.mapper.BookMapper;
+import com.bs.mall.pojo.Book;
+import com.bs.mall.pojo.BookList;
+import com.bs.mall.pojo.BookTheme;
+import com.bs.mall.pojo.HotBook;
+import com.bs.mall.util.BookStoreConstant;
+@Repository
+public class BookDaoImpl implements BookDao {
+	@Autowired
+	private BookMapper bm;
+	@Override
+	public List<Book> referBookByPage(Integer pageNum) {
+		Integer index = (pageNum-1)*10;
+		return bm.selectBookByPage(index, BookStoreConstant.BOOK_STATUS, BookStoreConstant.PAGE_SIZE);
+	}
+	@Override
+	public List<Book> referBookByKeyword(Integer pageNum, String keyword) {
+		Integer index = (pageNum-1)*10;
+		return bm.selectBookByKeyword(index, BookStoreConstant.BOOK_STATUS, keyword, BookStoreConstant.PAGE_SIZE);
+	}
+	@Override
+	public List<Book> referFavoriteBook(Integer userId) {
+		return bm.selectFavoriteBook(userId);
+	}
+	@Override
+	public List<HotBook> referHotBookByPage(Integer pageNum) {
+		Integer index = (pageNum-1)*10;
+		return bm.selectHotBookByPage(index, BookStoreConstant.BOOK_STATUS,BookStoreConstant.PAGE_SIZE);
+	}
+	@Override
+	public List<Book> referBookByKind(String bookKind) {
+		return bm.selectBookByKind(bookKind);
+	}
+	@Override
+	public List<Book> referBookByAuthor(String author) {
+		return bm.selectBookByAuthor(author, BookStoreConstant.BOOK_STATUS);
+	}
+	@Override
+	public List<BookList> referBookList(Integer themeId) {
+		return bm.selectBookList(themeId);
+	}
+	@Override
+	public BookTheme referBookTheme(Integer themeId) {
+		return bm.selectBookTheme(themeId);
+	}
+
+}

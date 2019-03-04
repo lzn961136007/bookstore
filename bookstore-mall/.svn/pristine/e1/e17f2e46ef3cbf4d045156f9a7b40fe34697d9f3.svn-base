@@ -1,0 +1,15 @@
+package com.bs.mall.service;
+
+import java.util.List;
+
+import com.bs.mall.pojo.Comment;
+import com.bs.mall.pojo.OrderComment;
+
+public interface CommentService {
+	List<Comment> getCommentByUserId(Integer userId);
+	Boolean deleteComment(Integer userId,Integer bookId);
+	List<OrderComment> getOrderCommentByUserId(Integer userId);
+	Boolean deleteOrderComment(Integer userId,String orderId);
+	//删除追评
+	Boolean deleteReplyComment(Integer userId,Integer bookId);
+}

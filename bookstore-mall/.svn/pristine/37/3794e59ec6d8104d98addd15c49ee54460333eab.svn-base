@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- CouponMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.CouponMapper">
+	<select id="selectAllInfo" resultMap="resultCoupon">
+		select <include refid="couponColumn"/> from t_coupon where NOW() &lt; coupon_end AND NOW() &gt; coupon_start AND coupon_status = #{kind}
+	</select>
+	<select id="selectUserGetCoupon" resultMap="resultCoupon">
+		select <include refid="couponColumn"/> from t_coupon where coupon_id = #{couponId}
+	</select>
+
+		<!--查询用户拥有的优惠券  -->
+	<select id="selectUserCoupon" resultMap="resultUserCoupon" >
+	select <include refid="userCouponColumn"/> from t_coupon c,t_user_get_coupon ugc where ugc.user_id=#{userId} and ugc.coupon_id=c.coupon_id group by coupon_id; 
+	</select>
+	
+	<!--用户使用了优惠券后修改用户优惠券使用状态  -->
+	<update id="updateUserCoupons">
+	update t_user_get_coupon set coupon_use_status=false,coupon_use_Time=#{couponUseTime} where user_id=#{userId} and coupon_id=#{couponId};
+	</update>
+	
+	<!--用户优惠券匹配  -->
+	<resultMap type="com.bs.mall.pojo.UserCoupon" id="resultUserCoupon" autoMapping="true">	
+	</resultMap>
+	
+	<resultMap type="com.bs.mall.pojo.Coupon" id="resultCoupon">
+		<id column="primary_id" property="primaryId"/>
+		<result column="coupon_id" property="couponId"/>
+		<result column="coupon_name" property="couponName"/>
+		<result column="coupon_money" property="couponMoney"/>
+		<result column="coupon_start" property="couponStart"/>
+		<result column="coupon_end" property="couponEnd"/>
+		<result column="coupon_remain_num" property="couponRemainNum"/>
+		<result column="coupon_num" property="couponNum"/>
+	</resultMap>
+	<sql id="couponColumn">primary_id,coupon_id,coupon_name,coupon_money,coupon_num,coupon_start,coupon_end,coupon_remain_num</sql>
+	<sql id="userCouponColumn">c.coupon_id,c.coupon_name,c.coupon_money,c.coupon_num,c.coupon_start,c.coupon_end,ugc.coupon_use_status,ugc.coupon_get_time,ugc.coupon_use_time</sql>
+</mapper>

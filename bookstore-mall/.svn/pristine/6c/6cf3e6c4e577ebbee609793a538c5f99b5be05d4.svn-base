@@ -1,0 +1,39 @@
+package com.bs.mall.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bs.mall.dao.CartDao;
+import com.bs.mall.pojo.Cart;
+import com.bs.mall.service.CartService;
+@Service
+public class CartServiceImpl implements CartService {
+	@Autowired
+	private CartDao cd;
+	@Override
+	public List<Cart> getCartByUserId(Integer userId) {
+		return cd.referCartByUserId(userId);
+	}
+	@Override
+	public boolean insertCart(List<Cart> Carts) {
+		if(cd.addCart(Carts)!=0)
+			{return true;}
+		return false;
+		
+	}
+	@Override
+	public boolean deCartsAlreadyPay(List<Integer> booksId) {
+		if(cd.deCartsAlreadyPay(booksId)!=0)
+		{return true;}
+	return false;
+	}
+	@Override
+	public boolean delCart(Integer cartId, Integer userId) {
+		if(cd.delCart(cartId,userId)!=0)
+		{return true;}
+		return false;
+	}
+	
+}

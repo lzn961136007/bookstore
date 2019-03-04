@@ -1,0 +1,127 @@
+package com.bs.mall.pojo;
+
+import java.util.Date;
+
+public class User {
+	private Integer userId;
+	private String username;
+	private String password;
+	private String phone;
+	private String email;
+	private Date registerDate;
+	private String level;
+	private Integer score;
+	private Integer balance;
+	private Boolean active;
+	private Date lastLoginTime;
+	private String key;
+	private Boolean cartStatus;
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public Integer getScore() {
+		return score;
+	}
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+	public Integer getBalance() {
+		return balance;
+	}
+	public void setBalance(Integer balance) {
+		this.balance = balance;
+	}
+	public Boolean getActive() {
+		return active;
+	}
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public Boolean getCartStatus() {
+		return cartStatus;
+	}
+	public void setCartStatus(Boolean cartStatus) {
+		this.cartStatus = cartStatus;
+	}
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public User(Integer userId, String username, String password, String phone, String email, Date registerDate,
+			String level, Integer score, Integer balance, Boolean active, Date lastLoginTime, String key,
+			Boolean cartStatus) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.phone = phone;
+		this.email = email;
+		this.registerDate = registerDate;
+		this.level = level;
+		this.score = score;
+		this.balance = balance;
+		this.active = active;
+		this.lastLoginTime = lastLoginTime;
+		this.key = key;
+		this.cartStatus = cartStatus;
+	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", phone=" + phone
+				+ ", email=" + email + ", registerDate=" + registerDate + ", level=" + level + ", score=" + score
+				+ ", balance=" + balance + ", active=" + active + ", lastLoginTime=" + lastLoginTime + ", key=" + key
+				+ ", cartStatus=" + cartStatus + "]";
+	}
+	
+}

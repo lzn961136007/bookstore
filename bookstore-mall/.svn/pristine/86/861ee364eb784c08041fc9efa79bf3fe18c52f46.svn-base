@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- BookMapper对应xml -->
+<mapper namespace="com.bs.mall.mapper.AllContextMapper">
+
+<!-- 根据书Id查询所有数据 -->
+	<select id="selectDetailById" resultMap="resultDetailById">
+		SELECT DISTINCT <include refid="AllContextColumn"/> 
+		FROM t_book b,t_author a,t_book_author ba,t_stock s,t_purchase_item pi
+		WHERE b.book_id =ba.book_id 
+		AND a.author_id=ba.author_id
+		AND s.purchase_item_id =pi.purchase_item_id
+		AND pi.book_id =b.book_id
+		AND b.book_id =#{bookId}
+	</select>
+	
+<!-- 根据书Id查询评论 -->
+	<select id="selectAllById" resultMap="resultAllById">
+		SELECT c.comment_content 
+		FROM t_comment c,t_book b 
+		WHERE c.book_id=b.book_id 
+		and b.book_id =#{book_id}
+	</select>
+
+<!-- 添加收藏 -->
+	<insert id="insertAddBook"  parameterType="java.util.List">
+		insert into t_user_book(user_id,book_id)values(#{userId},#{bookId})
+	</insert>
+	
+	<!-- 取消收藏 -->
+	<delete id="deleteAddBook" parameterType="java.util.List">
+		delete from t_user_book where user_id = #{userId} and book_id = #{bookId}
+	</delete>
+	
+	<!-- 判断是否存在 -->
+	<select id="getIsExist" resultMap="collectorById">
+		select user_id,book_id from t_user_book where user_id=#{userId} and book_id=#{bookId}
+	</select>
+	
+	<!-- 查询所有种类 -->
+	<select id="selectClassifyById" resultType="com.bs.mall.pojo.Category">
+		select DISTINCT  book_category from t_book 
+	</select>
+	
+	<!-- 点击那个种类就出现那个种类 -->
+	<select id="selectAllBookId" resultType="com.bs.mall.pojo.BookAuthorImage">
+	select DISTINCT book_name,book_category,book_id,book_cover_image
+	from t_book where book_category=#{bookCategory};
+	</select>
+	
+	<select id="selectAllBook" resultType="com.bs.mall.pojo.BookAuthorImage">
+	SELECT book_name,book_cover_image from t_book 
+	</select>
+	
+	<resultMap type="com.bs.mall.pojo.AllContent" id="resultDetailById">
+		<id column="book_id" property="bookId"/> 
+		<result column="book_name" property="bookName"/>
+		<result column="book_category" property="bookCategory"/>
+		<result column="book_sales_price" property="bookSalesPrice"/>
+		<result column="book_profile" property="bookProfile"/>
+		<result column="publish_name" property="PublishName"/>
+		<result column="book_cover_image" property="bookCoverImage"/>
+		<result column="author_name" property="authorName"/>
+		<result column="stock_num" property="stockNum"/>
+		<result column="stock_sales" property="stockSales"/>
+	</resultMap>
+	
+	<resultMap type="com.bs.mall.pojo.Comment" id="resultAllById">
+		<result column="comment_content" property="commentContent"/>
+	</resultMap>
+	
+	<!-- 判断是否存 -->
+	<resultMap type="com.bs.mall.pojo.Collector" id="collectorById">
+		<id column="book_id" property="bookId"/> 
+		<result column="user_id" property="userId"/>
+	</resultMap>
+	
+	
+	
+
+	
+	<sql id="AllContextColumn">b.book_id,b.book_name,b.book_category,b.book_sales_price,b.book_profile,b.publish_name,b.book_cover_image,a.author_name,s.stock_num,s.stock_sales</sql>
+</mapper>
